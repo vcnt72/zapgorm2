@@ -46,13 +46,34 @@ func (l Logger) LogMode(level gormlogger.LogLevel) gormlogger.Interface {
 }
 
 func (l Logger) Info(ctx context.Context, str string, args ...interface{}) {
+
+	requestID, ok := ctx.Value("request_id").(string)
+
+	if ok {
+
+		args = append(args, zap.String("request_id", requestID))
+
+	}
 	if l.LogLevel < gormlogger.Info {
+
 		return
 	}
+
 	l.logger().Sugar().Debugf(str, args...)
 }
 
 func (l Logger) Warn(ctx context.Context, str string, args ...interface{}) {
+	requestID, ok := ctx.Value("request_id").(string)
+	if ok {
+		args = append(args, zap.String("request_id", requestID))
+	}
+
+	if ok {
+
+		args = append(args, zap.String("request_id", requestID))
+
+	}
+
 	if l.LogLevel < gormlogger.Warn {
 		return
 	}
@@ -60,6 +81,13 @@ func (l Logger) Warn(ctx context.Context, str string, args ...interface{}) {
 }
 
 func (l Logger) Error(ctx context.Context, str string, args ...interface{}) {
+
+	requestID, ok := ctx.Value("request_id").(string)
+	if ok {
+		args = append(args, zap.String("request_id", requestID))
+
+	}
+
 	if l.LogLevel < gormlogger.Error {
 		return
 	}
