@@ -1,9 +1,9 @@
 package zapgorm2_test
 
 import (
+	"github.com/vcnt72/zapgorm2"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"moul.io/zapgorm2"
 )
 
 func Example() {
